@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <select name="years">
+        {% for year in years %}
+  <option value="{{ year }}">{{ year }}</option>
+        {% endfor %}
+</select>
+    <button type="submit">Чет туда</button>
+</form>
+
+
+    <div>
+        {% for meeting in all_meetings %}
+            <a href=""><div class="meeting">
+            <h3>{{ meeting.date }}</h3>
+            </div></a>
+        {% endfor %}
+
+    </div>
+{% endblock %}

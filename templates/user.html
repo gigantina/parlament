@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+
+
+{% block content %}
+    <header class="page-header">
+        <div class="container">
+            <h1>Мой парламент</h1>
+        </div>
+    </header>
+    {% if user.is_authenticated %}
+        {% if membership %}
+            <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
+
+            <a href="">
+                <button class="btn btn-primary">Написать Парламенту</button>
+            </a>
+            <br>
+
+            {% if user.is_congressman %}
+                <a href="">Голосования</a>
+                {% else %}
+                <a href="">Опросы</a>
+            {% endif %}
+
+            <br>
+
+            <a href="">Заседания</a>
+
+            <a href="{% url 'account_logout' %}">Выйти</a>
+        {% else %}
+            <a href="">Выйди и звйии нормапльно в группу, дебил. {{ user.id }} а еще {{ vk }}</a>
+        {% endif %}
+    {% else %}
+        <a href="{% provider_login_url 'vk' %}">Авторизоваться</a>
+
+    {% endif %}
+
+{% endblock %}

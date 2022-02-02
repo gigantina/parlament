@@ -14,7 +14,6 @@ def get_token_or_none():
 def get_group_id_or_none():
     try:
         return os.environ['VKGROUPID']
-
     except:
         return None
 
@@ -22,7 +21,9 @@ def get_group_id_or_none():
 def isMember(user_id, group_id=get_group_id_or_none(), token=get_token_or_none(), v='5.131'):
     url = f'https://api.vk.com/method/groups.isMember?group_id={group_id}&user_id={user_id}&access_token={token}&v={v}'
     result = requests.get(url).text
+    print(url)
     if 'error' in result:
+        print('Here')
         return False
 
     result = result.split(':')[-1][:-1]
