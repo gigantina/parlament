@@ -10,8 +10,15 @@
     <div>
         <p>Заседание от {{ meeting }}</p>
         <p>Повестка:</p>
-        {% if agenda %}
-        {{ agenda|linebreaks }}
+        {% if agendas %}
+        {% for agenda in agendas %}
+            {% if user.is_congressman or not agenda.is_hidden %}
+
+            {{ agenda|linebreaksbr }}
+                <br>
+
+            {% endif %}
+        {% endfor %}
         {% else %}
         <p>Повестка недоступна</p>
         {% endif %}

@@ -17,15 +17,11 @@
             </a>
             <br>
 
-            {% if user.is_congressman %}
-                <a href="">Голосования</a>
-                {% else %}
-                <a href="">Опросы</a>
-            {% endif %}
+            <a href="#">Опросы</a>
 
             <br>
 
-            <a href="">Заседания</a>
+            <a href="{% url 'meeting_list' %}">Заседания</a>
 
             <a href="{% url 'account_logout' %}">Выйти</a>
         {% else %}

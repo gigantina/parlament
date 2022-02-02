@@ -12,7 +12,7 @@ class Claim(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(blank=False, max_length=200)
     text = models.TextField(blank=False)
-    photo = models.FileField(blank=True)
+    photo = models.ImageField(blank=True)
     date = models.DateField(auto_now=True)
 
     def __str__(self):

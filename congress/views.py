@@ -7,6 +7,7 @@ from .models import CustomUser
 from .models import Meeting, Agenda
 import utils.vk
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 from utils.object import get_object_or_none, get_years
 
 
@@ -30,6 +31,7 @@ def index(request):
     return render(request, 'user.html', context=context)
 
 
+@login_required
 def meeting_list(request):
     context = {}
     context['years'] = get_years()
@@ -42,6 +44,7 @@ def meeting_list(request):
     return render(request, 'meeting_list.html', context=context)
 
 
+@login_required
 def meeting_detail(request, date):
     print(date)
     date = datetime.strptime(date, '%Y-%m-%d')
@@ -49,8 +52,9 @@ def meeting_detail(request, date):
     meeting = get_object_or_none(Meeting, date=date)
     if meeting:
         all_agenda = Agenda.objects.filter(meet=meeting)
-        context['agenda'] = all_agenda.values_list()[0][2]
         print(all_agenda)
+        context['agendas'] = all_agenda
+        print(context['agendas'])
     print(meeting)
     context['meeting'] = date.strftime('%d-%m-%Y')
 
