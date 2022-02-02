@@ -7,7 +7,7 @@ from django.views.generic import CreateView, ListView
 
 
 def index(request):
-    print(request.GET)
+    print(request.user)
     return render(
         request,
         'index.html')
