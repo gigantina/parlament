@@ -14,7 +14,7 @@
 
     <div>
         {% for meeting in all_meetings %}
-            <a href=""><div class="meeting">
+            <a href="{% url 'meeting_detail' date=meeting.date %}"><div class="meeting">
             <h3>{{ meeting.date }}</h3>
             </div></a>
         {% endfor %}

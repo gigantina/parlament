@@ -4,7 +4,7 @@ from django.forms import fields
 from django.shortcuts import render
 from allauth.socialaccount.models import SocialAccount
 from .models import CustomUser
-from .models import Meeting
+from .models import Meeting, Agenda
 import utils.vk
 from datetime import datetime
 from utils.object import get_object_or_none, get_years
@@ -35,12 +35,24 @@ def meeting_list(request):
     context['years'] = get_years()
     year = datetime.now().year
     if request.method == 'POST':
-        year = request.POST['years']
+        if 'years' in request.POST:
+            year = request.POST['years']
     all_meetings = Meeting.objects.filter(date__year=year)
     context['all_meetings'] = all_meetings
     return render(request, 'meeting_list.html', context=context)
 
 
-def meeting_detail(request, meet_id):
-    meeting = get_object_or_none(Meeting, meet_id=meet_id)
+def meeting_detail(request, date):
+    print(date)
+    date = datetime.strptime(date, '%Y-%m-%d')
+    context = {}
+    meeting = get_object_or_none(Meeting, date=date)
+    if meeting:
+        all_agenda = Agenda.objects.filter(meet=meeting)
+        context['agenda'] = all_agenda.values_list()[0][2]
+        print(all_agenda)
+    print(meeting)
+    context['meeting'] = date.strftime('%d-%m-%Y')
+
+    return render(request, 'meeting_detail.html', context=context)
 

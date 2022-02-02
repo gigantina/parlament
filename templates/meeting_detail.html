@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'meeting_list' %}">
+    {% csrf_token %}
+    <button type="submit">К списку заседаний</button>
+</form>
+
+
+    <div>
+        <p>Заседание от {{ meeting }}</p>
+        <p>Повестка:</p>
+        {% if agenda %}
+        {{ agenda|linebreaks }}
+        {% else %}
+        <p>Повестка недоступна</p>
+        {% endif %}
+
+    </div>
+{% endblock %}
