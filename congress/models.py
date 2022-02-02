@@ -48,27 +48,26 @@ class Voting(models.Model):
         return self.title
 
 
-class Variant(models.Model):
-    variant_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(blank=False, max_length=200)
-
-    def __str__(self):
-        return self.title
-
-
-class VariantsVoting(models.Model):
-    varvot_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    variant = models.ForeignKey(Variant, on_delete=models.CASCADE)
-    voting = models.ForeignKey(Voting, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.voting.title}-{self.variant.title}'
-
-
 class Vote(models.Model):
     vote_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    variant = models.ForeignKey(VariantsVoting, on_delete=models.CASCADE)
+    voting = models.ForeignKey(Voting, on_delete=models.CASCADE)
+    LOAN_STATUS = {
+        ('y', 'За'),
+        ('n', 'Против'),
+        ('a', 'Воздержался')
+    }
+    status = models.CharField(
+        max_length=1,
+        choices=LOAN_STATUS,
+        blank=True,
+        default='m',
+        help_text='Вариант ответа',
+    )
+
+
+    comment = models.TextField(blank=True, default='')
+
 
     def __str__(self):
-        return f'{self.user.first_name} {self.variant.title}'
+        return f'{self.user.first_name}-{self.status}'
