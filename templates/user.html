@@ -3,11 +3,7 @@
 
 
 {% block content %}
-    <header class="page-header">
-        <div class="container">
-            <h1>Мой парламент</h1>
-        </div>
-    </header>
+    {% include 'components/header.html' %}
     {% if user.is_authenticated %}
         {% if membership %}
             <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
