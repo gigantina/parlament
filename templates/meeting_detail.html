@@ -1,26 +1,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post" action="{% url 'meeting_list' %}">
-    {% csrf_token %}
-    <button type="submit">К списку заседаний</button>
-</form>
+    <form method="post" action="{% url 'meeting_list' %}">
+        {% csrf_token %}
+        <button type="submit">К списку заседаний</button>
+    </form>
 
 
     <div>
-        <p>Заседание от {{ meeting }}</p>
-        <p>Повестка:</p>
+        <h2>Заседание от {{ meeting }}</h2>
+        <h3>Повестка:</h3>
         {% if agendas %}
-        {% for agenda in agendas %}
-            {% if user.is_congressman or not agenda.is_hidden %}
+            {% for agenda in agendas %}
+                {% if user.is_congressman or not agenda.is_hidden %}
 
-            {{ agenda|linebreaksbr }}
-                <br>
+                    {{ agenda|linebreaksbr }}
+                    <br>
 
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
         {% else %}
-        <p>Повестка недоступна</p>
+            <p>Повестка недоступна</p>
+        {% endif %}
+
+        <hr>
+
+        <h3>Связанные голосования и опросы</h3>
+        {% if votings %}
+            {% for voting in votings %}
+
+                {% if voting.is_public or user.is_congressman %}
+                    <a href="{% url 'voting_detail' title=voting.title %}">{{ voting.title }}</a>
+                {% endif %}
+
+            {% endfor %}
         {% endif %}
 
     </div>

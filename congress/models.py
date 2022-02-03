@@ -41,6 +41,8 @@ class Voting(models.Model):
     voting_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(blank=False, max_length=200)
     date = models.DateField(blank=False, auto_now_add=True)
+    meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE)
+    text = models.TextField(blank=False)
     is_active = models.BooleanField(default=True)
     is_public = models.BooleanField(default=False)
 
@@ -69,5 +71,6 @@ class Vote(models.Model):
     comment = models.TextField(blank=True, default='')
 
 
+
     def __str__(self):
-        return f'{self.user.first_name}-{self.status}'
+        return f'{self.user.first_name}-{self.status}-{self.voting.title}'

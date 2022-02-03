@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" action="{% url 'voting_list' %}">
+        {% csrf_token %}
+        <button type="submit">К списку голосований</button>
+    </form>
+
+    {% if voting %}
+        <div>
+
+            <h2>{{ voting.title }}</h2>
+            {% if voting.is_active %}
+                <h3>Голосование еще активно</h3>
+            {% endif %}
+            <p>{{ voting.text }}</p>
+            <hr>
+
+            {% if voting.is_active %}
+
+                {% if voting.is_public or user.is_congressman %}
+                    {% if form %}
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-check">
+                                <select class="form-control" label="vote_choice" name="vote_choice">
+                                    <option value="y">За</option>
+                                    <option value="n">Против</option>
+                                    <option value="a">Воздержался</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Комментарий (необязательно)</label>
+                                <textarea class="form-control" id="comment" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Проголосовать</button>
+
+                        </form>
+                    {% else %}
+                        <p>Вы уже проголосовали</p>
+                        {% endif %}
+                {% endif %}
+
+            {% endif %}
+
+            {% if not voting.is_active or user.is_congressman %}
+                <h3>Результат:</h3>
+                <p>За: {{ true_votes }}</p>
+                <p>Против: {{ false_votes }}</p>
+                <p>Воздержались: {{ neutral_votes }}</p>
+
+
+                <hr>
+
+                <p>Всего проголосовало: {{ all_votes }}</p>
+
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

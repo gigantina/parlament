@@ -1,22 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <select name="years">
-        {% for year in years %}
-  <option value="{{ year }}">{{ year }}</option>
-        {% endfor %}
-</select>
-    <button type="submit">Чет туда</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <select name="years">
+            {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Чет туда</button>
+    </form>
+    {% if current_meeting %}
+        <div class="meeting">
+            <h3>Последнее собрание:</h3>
+            <a href="{% url 'meeting_detail' date=current_meeting.date %}">
+                <h3>{{ current_meeting.date }}</h3>
+            </a>
+        </div>
+    {% endif %}
 
+    <hr>
 
     <div>
         {% for meeting in all_meetings %}
-            <a href="{% url 'meeting_detail' date=meeting.date %}"><div class="meeting">
-            <h3>{{ meeting.date }}</h3>
-            </div></a>
+            <div class="meeting">
+                <a href="{% url 'meeting_detail' date=meeting.date %}">
+                    <h3>{{ meeting.date }}</h3>
+                </a>
+            </div>
         {% endfor %}
 
     </div>
