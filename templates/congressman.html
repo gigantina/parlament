@@ -10,9 +10,6 @@
             <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
             <p>Спасибо, что вы делаете для школы</p>
 
-            <a href="">
-                <button class="btn btn-primary">Сообщения Парламенту</button>
-            </a>
             <br>
 
             <a href="{% url 'voting_list' %}">Голосования</a>
@@ -20,13 +17,15 @@
             <br>
 
             <a href="{% url 'meeting_list' %}">Заседания</a>
-            
+
+            <br>
+
             <a href="{% url 'account_logout' %}">Выйти</a>
         {% else %}
             <a href="">Уважаемый конгрессмен! Быть не подписанным на группу Парламента  - вам должно быть стыдно!</a>
         {% endif %}
     {% else %}
-        {% url index %}
+        {% url 'index' %}
 
     {% endif %}
 

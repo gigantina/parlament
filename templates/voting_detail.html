@@ -38,7 +38,7 @@
                         </form>
                     {% else %}
                         <p>Вы уже проголосовали</p>
-                        {% endif %}
+                    {% endif %}
                 {% endif %}
 
             {% endif %}
@@ -55,6 +55,13 @@
                 <p>Всего проголосовало: {{ all_votes }}</p>
 
             {% endif %}
+
+            <hr>
+
+            <p>Связано с заседанием: <a
+                    href="{% url 'meeting_detail' date=voting.meeting.date %}">{{ voting.meeting.date }}</a>
+            </p>
+
         </div>
     {% endif %}
 {% endblock %}

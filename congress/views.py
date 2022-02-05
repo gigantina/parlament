@@ -22,6 +22,7 @@ def index(request):
 
     context['membership'] = False
     context['vk'] = vk_id
+    context['link'] = f'https://vk.com/im?sel=-{utils.vk.get_group_id_or_none()}'
     if request.user.is_authenticated:
         if utils.vk.isMember(vk_id) or request.user.is_superuser:
             context['membership'] = True
@@ -40,8 +41,7 @@ def meeting_list(request):
     year = datetime.now().year
     if request.method == 'POST':
         if 'years' in request.POST:
-            if request.session['form'] == request.POST['sessid']:
-                year = request.POST['years']
+            year = request.POST['years']
     all_meetings = Meeting.objects.filter(date__year=year)
     current_meetung = Meeting.objects.latest('date')
     context['current_meeting'] = current_meetung
@@ -72,7 +72,6 @@ def voting_list(request):
     context = {}
     context['years'] = get_years()
     year = datetime.now().year
-    print(request.session.session_key)
     if request.method == 'GET':
         if 'years' in request.GET:
             year = request.GET['years']
