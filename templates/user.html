@@ -3,28 +3,34 @@
 
 
 {% block content %}
-    {% include 'components/header.html' %}
     {% if user.is_authenticated %}
         {% if membership %}
-            <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
+        <p class="title">Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
+        <main id="welcome">
+            <!-- <main id="write"> -->
+                <div class="write-image"></div>
+                 <a href="{{ link }}" class="write-parlament-link">Написать в Парламент</a>
+            <!-- </main> -->
 
-            <a href="{{ link }}">
-                <button class="btn btn-primary">Написать Парламенту</button>
-            </a>
-            <br>
+            <main id="write">
+                <div class="info">
+                    <a href="{% url 'voting_list' %}" class="title">Опросы</a>
+                </div>
+            </main>
 
-            <a href="{% url 'voting_list' %}">Опросы</a>
+            <main id="write">
+                <div class="info">
+                    <a href="{% url 'meeting_list' %}" class="title">Заседания</a>
+                </div>
+            </main>
 
-            <br>
-
-            <a href="{% url 'meeting_list' %}">Заседания</a>
-
-            <a href="{% url 'account_logout' %}">Выйти</a>
+            <a href="{% url 'account_logout' %}" class="write-link">Выйти</a>
+        </main>
         {% else %}
-            <a href="">Выйди и звйии нормапльно в группу, дебил. {{ user.id }} а еще {{ vk }}</a>
+            <a href="">Вы не подписаны на нашу группу в ВКонтакте. Подпишитесь и повторите попытку входа) {{ user.id }} а еще {{ vk }}</a>
         {% endif %}
     {% else %}
-        <a href="{% provider_login_url 'vk' %}">Авторизоваться</a>
+        <a class="signin-link" href="{% provider_login_url 'vk' %}">Авторизоваться</a>
 
     {% endif %}
 

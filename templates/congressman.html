@@ -4,11 +4,11 @@
 
 
 {% block content %}
-    {% include 'components/header.html' %}
+    <!-- {% include 'components/header.html' %} -->
     {% if user.is_authenticated %}
         {% if membership %}
             <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
-            <p>Спасибо, что вы делаете для школы</p>
+            <p>Спасибо за все, что вы делаете для школы</p>
 
             <br>
 

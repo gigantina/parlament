@@ -3,7 +3,7 @@
 {% block content %}
     <form method="post" action="{% url 'voting_list' %}">
         {% csrf_token %}
-        <button type="submit">К списку голосований</button>
+        <button class="back" type="submit">К списку голосований</button>
     </form>
 
     {% if voting %}
@@ -44,7 +44,7 @@
             {% endif %}
 
             {% if not voting.is_active or user.is_congressman %}
-                <h3>Результат:</h3>
+                <h3 class="title">Результат:</h3>
                 <p>За: {{ true_votes }}</p>
                 <p>Против: {{ false_votes }}</p>
                 <p>Воздержались: {{ neutral_votes }}</p>
@@ -58,7 +58,7 @@
 
             <hr>
 
-            <p>Связано с заседанием: <a
+            <p>Связано с заседанием: <a class="opros-link"
                     href="{% url 'meeting_detail' date=voting.meeting.date %}">{{ voting.meeting.date }}</a>
             </p>
 
