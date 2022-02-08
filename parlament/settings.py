@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.vk',
     'congress',
+    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = 'congress.CustomUser'
@@ -146,3 +147,8 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = 'index'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+STATICFILES_DIRS = [ 
+    BASE_DIR / "static",
+]

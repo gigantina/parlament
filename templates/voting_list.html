@@ -1,22 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <form method="get">
         {% csrf_token %}
-        <select name="years">
-            {% for year in years %}
-                <option value="{{ year }}">{{ year }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Чет туда</button>
+        <div class="file-load-block">
+                <select name="years">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            <button type="submit" class="year">Выбрать год</button>
+        </div>
     </form>
+
     {% if current_votings %}
         {% for current_voting in current_votings %}
             <div class="meeting">
                 <h3>Доступные голосования и опросы:</h3>
-                <a href="{% url 'voting_detail' title=current_voting.title %}">
+                <main id="opros">
+                <a class="opros-link" href="{% url 'voting_detail' title=current_voting.title %}">
                     <h3>{{ current_voting.title }}</h3>
                 </a>
+                </main>
             </div>
         {% endfor %}
     {% endif %}
@@ -27,9 +33,11 @@
         {% for voting in all_votings %}
             {% if user.is_congressman or voting.is_public or not voting.is_active %}
                 <div class="meeting">
-                    <a href="{% url 'voting_detail' title=voting.title %}">
+                    <main id="opros">
+                    <a class="opros-link" href="{% url 'voting_detail' title=voting.title %}">
                         <h3>{{ voting.title }}</h3>
                     </a>
+                </main>
                 </div>
             {% endif %}
         {% endfor %}

@@ -18,10 +18,13 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('congress/', include('congress.urls')),
     #path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('allauth.urls')),
     path('', views.index)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

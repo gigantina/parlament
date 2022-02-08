@@ -8,12 +8,14 @@
                 <option value="{{ year }}">{{ year }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Чет туда</button>
+        <button type="submit" class="year">Выбрать год</button>
     </form>
+
+
     {% if current_meeting %}
         <div class="meeting">
             <h3>Последнее собрание:</h3>
-            <a href="{% url 'meeting_detail' date=current_meeting.date %}">
+            <a class="opros-link" href="{% url 'meeting_detail' date=current_meeting.date %}">
                 <h3>{{ current_meeting.date }}</h3>
             </a>
         </div>
@@ -23,11 +25,13 @@
 
     <div>
         {% for meeting in all_meetings %}
+        <main id="zased">
             <div class="meeting">
-                <a href="{% url 'meeting_detail' date=meeting.date %}">
+                <a  class="title" href="{% url 'meeting_detail' date=meeting.date %}">
                     <h3>{{ meeting.date }}</h3>
                 </a>
             </div>
+        </main>
         {% endfor %}
 
     </div>
