@@ -1,1 +1,1 @@
-"web: gunicorn parlament.wsgi"
+web: gunicorn parlament.wsgi
