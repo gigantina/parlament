@@ -4,25 +4,31 @@
 
 
 {% block content %}
-    <!-- {% include 'components/header.html' %} -->
     {% if user.is_authenticated %}
         {% if membership %}
-            <p>Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
-            <p>Спасибо за все, что вы делаете для школы</p>
+            <p class="title">Добро пожаловать, {{ user.first_name }} {{ user.last_name }}!</p>
+            <main id="welcome">
 
-            <br>
+                                <div class="write-image"></div>
+                 <a href="{{ link }}" class="write-parlament-link">Написать в Парламент</a>
 
-            <a href="{% url 'voting_list' %}">Голосования</a>
 
-            <br>
+                <main id="write">
+                    <div class="info">
+                        <a href="{% url 'voting_list' %}" class="title">Голосования</a>
+                    </div>
+                </main>
 
-            <a href="{% url 'meeting_list' %}">Заседания</a>
+                <main id="write">
+                    <div class="info">
+                        <a href="{% url 'meeting_list' %}" class="title">Заседания</a>
+                    </div>
+                </main>
 
-            <br>
-
-            <a href="{% url 'account_logout' %}">Выйти</a>
+                <a href="{% url 'account_logout' %}" class="write-link">Выйти</a>
+            </main>
         {% else %}
-            <a href="">Уважаемый конгрессмен! Быть не подписанным на группу Парламента  - вам должно быть стыдно!</a>
+            <a href="">Уважаемый конгрессмен! Быть не подписанным на группу Парламента - вам должно быть стыдно!</a>
         {% endif %}
     {% else %}
         {% url 'index' %}
