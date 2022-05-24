@@ -27,7 +27,7 @@
             <a href="{% url 'account_logout' %}" class="write-link">Выйти</a>
         </main>
         {% else %}
-            <a href="">Вы не подписаны на нашу группу в ВКонтакте. Подпишитесь и повторите попытку входа) {{ user.id }} а еще {{ vk }}</a>
+            <p>Вы не подписаны на нашу группу в ВКонтакте. Подпишитесь и повторите попытку входа <br> {{ user.id }} а еще {{ vk }}</p>
         {% endif %}
     {% else %}
         <a class="signin-link" href="{% provider_login_url 'vk' %}">Авторизоваться</a>
